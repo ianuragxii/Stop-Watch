@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>stopwatch</title>
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+</head>
+<body>
+	<div class="main-container">
+		<div class="heading">STOP-WATCH</div>
+		<div id="container1">
+			0:0:0
+		</div>
+		<div >
+			<button onclick="start()" id='start'>start</button>
+			<button onclick="stop()" id='stop'>stop</button>
+			<button onclick="resume()" id='resume'>resume</button>
+			<button onclick="clear()" id="clear">clear</button>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var hr = 0;
+		var min = 0;
+		var sec = 0;
+		var watch = '';
+
+		function start(){
+			watch = setInterval(update,1000);
+
+		}
+
+		function update(){
+			sec = sec + 1;
+			if (sec>59) { 
+				min = min+1;
+				sec = 0;
+				if(min>59){
+					hr = hr+1;
+					min = 0;
+					sec = 0;
+					if (hr>11) {
+						hr = 0;
+						min = 0;
+						sec = 0;
+
+
+					}
+				}
+			}
+			document.getElementById('container1').innerHTML = hr+':'+min+':'+sec;
+			document.getElementById('clear').onclick = ()=>{clear();};
+			document.getElementById('stop').onclick = ()=>{stop();};
+			document.getElementById('resume').onclick = ()=>{resume();};
+
+			function stop() {
+				clearInterval(watch);
+			}
+
+			function resume() {
+				watch = setInterval(update,1000);
+			}
+
+			function clear(){
+				hr = 0;
+				min = 0;
+				sec = 0;
+				clearInterval(watch);
+				document.getElementById('container1').innerHTML = hr+':'+min+':'+sec;
+			}
+		}
+	</script>
+
+</body>
+</html>
